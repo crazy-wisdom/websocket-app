@@ -22,9 +22,24 @@ const Index = () => {
 
   return (
     <BaseLayout>
-      <div>
-        index
-      </div>
+      <ul className="talk-list">
+        <li>
+          <div className="title">
+            <i className="fa fa-caret-up" aria-hidden="true"></i>
+            <div className="text">
+              My product is my garden
+            </div>
+          </div>
+
+          <div className="sub-title">
+            <span className="time">4 hours ago</span>
+            <span className="">&nbsp;|&nbsp;</span>
+            <span className="author">King</span>
+          </div>
+
+        </li>
+
+      </ul>
     </BaseLayout>
   )
 }

@@ -1,21 +1,39 @@
 import * as React from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+import {useSelector, useDispatch} from 'react-redux';
 
-interface Props {
-   name:
-    string
+import * as PageService from './services/page-service';
+
+import Index from './talks/index';
+import Show from './talks/show';
+import New from './talks/new';
+
+
+const APP = () => {
+  const dispatch = useDispatch();
+
+  // const urlPrefix = PageService.urlPrefix;
+  const urlPrefix = '';
+
+  React.useEffect(() => {
+  }, []);
+
+
+  return (
+    <Switch>
+
+      <Route path={`${urlPrefix}/talks`} component={Index} exact />
+      <Route path={`${urlPrefix}/talks/:id`} component={Show} />
+      <Route path={`${urlPrefix}/talks/new`} component={New} />
+
+    </Switch>
+  )
 }
 
-class App extends React.Component<Props> {
-  render() {
-    const { name } = this.props;
-    return (
-      <>
-        <h1>
-          Hello {name}
-        </h1>
-      </>
-    );
-  }
-}
 
-export default App;
+export default APP;

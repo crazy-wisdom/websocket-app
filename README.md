@@ -1,6 +1,6 @@
 # websocket-app
 
-Simple hackernews clone by websocket, express and react.
+Simple hackernews clone by websocket, express and react/redux.
 
 ### installation
 ```
@@ -17,4 +17,5 @@ node src/servers/server.js
 npm start
 ```
 
-
+### done
+After start backend and frontend. Then Visit: http://localhost:1234

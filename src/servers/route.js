@@ -2,20 +2,40 @@
 const path = require('path');
 const bodyParser = require('body-parser');
 
+const port = 3050;
 
 exports.setup = function(app, express) {
+  // Store all of user post on the array.
+  app.locals.talks = [];
+
+  const router = express.Router();  
+
   app.use(bodyParser.urlencoded({
     extended: true
   }));
 
-  // app.get('/', (req, res) => {
-  //   res.sendFile(path.join(__dirname, '..', '..', 'dist', 'index.html'));
-  // });
+  router.use(function(req, res, next) {
+    console.log('Received body from client:')
+    console.log(req.body);
+    next();
+  });
 
-  const router = express.Router();  
+  router.route('/talks')
+
+    // POST http://localhost:3050/api/talks
+    .post(function(req, res, next) {
+
+      app.locals.talks.push({
+        title: req.body.title
+      });
+      console.log('Post saved.')
+
+      res.json(app.locals.talks);
+      next();
+    });
+
   app.use('/api', router);
 
-  const port = 3050;
   app.listen(port, () => {
     console.log(`listening http://localhost:${port}`);
   });

@@ -20,8 +20,23 @@ const APP = () => {
   // const urlPrefix = PageService.urlPrefix;
   const urlPrefix = '';
 
+  let talkData = useSelector((state: { talkData: any }) => state.talkData);
+
   React.useEffect(() => {
-  }, []);
+    const ws = new WebSocket('ws://localhost:3030');
+
+    ws.onopen = function() {
+      console.log('WS connected'); 
+      ws.send('Hello, This is WS client.');
+    }
+
+    ws.onmessage = function(event) {
+      dispatch({
+        type: 'talkData',
+        value: JSON.parse(event.data)
+      });
+    };
+  }, [talkData]);
 
 
   return (

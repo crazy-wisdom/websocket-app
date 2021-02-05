@@ -14,9 +14,19 @@ exports.start = function(app) {
 
   setInterval(() => {
     socketServer.clients.forEach((client) => {
-      if (app.locals.messages.length > 0) {
-        client.send(app.locals.messages[app.locals.messages.length - 1]);
+      const talkCount = app.locals.talks.length;
+      if (talkCount > 0) {
+        // Conver array to json
+        // We can use ArrayBuffer instead here too.
+        const talkData = {};
+        for (var i = talkCount; i >= 0; i--) {
+          talkData[i] = app.locals.talks[i];
+        }
+
+        console.log('Client would receive: ')
+        console.log(talkData);
+        client.send(JSON.stringify(talkData));
       }
     });
-  }, 1000);
+  }, 2000);
 };

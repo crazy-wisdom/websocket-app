@@ -8,7 +8,7 @@ type ActionProps = {
 
 
 const talkData = (state = {}, action: ActionProps) => {
-  if (action.type === 'funnelData') {
+  if (action.type === 'talkData') {
     const data =  {
       ...state,
       ...action.value

@@ -20,6 +20,8 @@ exports.setup = function(app, express) {
     extended: true
   }));
 
+  app.use(bodyParser.json());
+
   router.use(function(req, res, next) {
     console.log('Received body from client:')
     console.log(req.body);
@@ -37,11 +39,15 @@ exports.setup = function(app, express) {
 
     // POST http://localhost:3050/api/talks
     .post(function(req, res, next) {
-
       const data = {
         title: req.body.title,
-        rank: req.body.rank ? req.body.rank : 0
+        content: req.body.content,
+        rank: req.body.rank ? req.body.rank : 0,
+        created_at: req.body.created_at
       };
+
+      console.log('Saving posted talk');
+      console.log(data);
 
       app.locals.talks.push(data);
       console.log('Post saved.')

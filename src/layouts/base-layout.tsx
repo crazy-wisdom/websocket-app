@@ -6,6 +6,7 @@ import {
 } from 'react-redux';
 
 import {
+  useHistory,
   useParams
 } from "react-router-dom";
 
@@ -20,14 +21,46 @@ type Props = {
 
 
 const BaseLayout = ({ children }: Props) => {
+  const history = useHistory();
 
   React.useEffect(() => {
   });
 
+  function showHome(event: React.MouseEvent) {
+    try {
+      const urlPrefix = PageService.urlPrefix;
+      history.push(`${urlPrefix}/talks`);
+    } catch (error) {
+      // console.log(error.message);
+    }
+  }
+
+  function showNew(event: React.MouseEvent) {
+    try {
+      const urlPrefix = PageService.urlPrefix;
+      history.push(`${urlPrefix}/talks/new`);
+    } catch (error) {
+      // console.log(error.message);
+    }
+  }
+
   return (
-    <div>
+    <>
+      <header>
+        <div className="container">
+          <ul>
+            <li onClick={showHome}>
+              Home
+            </li>
+
+            <li onClick={showNew}>
+              New Talk
+            </li>
+          </ul>
+        </div>
+      </header>
       { children }
-    </div>
+    </>
   )
 }
 

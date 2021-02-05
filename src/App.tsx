@@ -17,13 +17,12 @@ import New from './talks/new';
 const APP = () => {
   const dispatch = useDispatch();
 
-  // const urlPrefix = PageService.urlPrefix;
-  const urlPrefix = '';
-
-  let talks = useSelector((state: { talks: any }) => state.talks);
+  const urlPrefix = PageService.urlPrefix;
+  const apiUrl = PageService.apiUrl;
+  const wsUrl = PageService.wsUrl;
 
   React.useEffect(() => {
-    fetch('http://localhost:3050/api/talks')
+    fetch(`${apiUrl}/api/talks`)
     .then(res => res.json())
     .then(
       (result) => {
@@ -40,7 +39,9 @@ const APP = () => {
 
 
   React.useEffect(() => {
-    const ws = new WebSocket('ws://localhost:3030');
+    const ws = new WebSocket(`${wsUrl}`);
+
+    // console.log(`${urlPrefix}/talks`)
 
     ws.onopen = function() {
       console.log('WS connected'); 
@@ -62,8 +63,8 @@ const APP = () => {
     <Switch>
 
       <Route path={`${urlPrefix}/talks`} component={Index} exact />
+      <Route path={`${urlPrefix}/talks/new`} component={New} exact />
       <Route path={`${urlPrefix}/talks/:id`} component={Show} />
-      <Route path={`${urlPrefix}/talks/new`} component={New} />
 
     </Switch>
   )

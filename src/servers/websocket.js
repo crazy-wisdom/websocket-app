@@ -18,7 +18,12 @@ exports.connect = function() {
 
 exports.send = function(app, socketServer) {
   const talks = app.locals.talks.sort(function(a, b) {
-    return parseInt(b.rank) - parseInt(a.rank);
+
+    if (b.rank - a.rank !== 0) {
+      return b.rank - a.rank;
+    } else {
+      return b.created_at - a.created_at;
+    }
   });
 
   // console.log(talks);

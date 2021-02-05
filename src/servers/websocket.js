@@ -1,7 +1,7 @@
 const WebSocket = require('ws');
 
 
-exports.start = function(app) {
+exports.connect = function() {
   const socketServer = new WebSocket.Server({port: 3030});
   socketServer.on('connection', (socketClient) => {
     console.log('connected');
@@ -12,21 +12,29 @@ exports.start = function(app) {
     });
   });
 
-  setInterval(() => {
-    socketServer.clients.forEach((client) => {
-      const talkCount = app.locals.talks.length;
-      if (talkCount > 0) {
-        // Conver array to json
-        // We can use ArrayBuffer instead here too.
-        const talkData = {};
-        for (var i = talkCount; i >= 0; i--) {
-          talkData[i] = app.locals.talks[i];
-        }
-
-        console.log('Client would receive: ')
-        console.log(talkData);
-        client.send(JSON.stringify(talkData));
-      }
-    });
-  }, 2000);
+  return socketServer;
 };
+
+
+exports.send = function(app, socketServer) {
+  const talks = app.locals.talks.sort(function(a, b) {
+    return parseInt(b.rank) - parseInt(a.rank);
+  });
+
+  // console.log(talks);
+
+  socketServer.clients.forEach((client) => {
+    const talkCount = talks.length;
+    if (talkCount > 0) {
+      // Conver array to json
+      // We can use ArrayBuffer instead here too.
+      const talkData = {
+        talks: talks
+      }
+      console.log(talkData);
+      client.send(JSON.stringify(talkData));
+    } else {
+      console.log('There are no talks now.');
+    }
+  });
+}

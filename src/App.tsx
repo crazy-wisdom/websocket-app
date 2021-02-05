@@ -20,7 +20,24 @@ const APP = () => {
   // const urlPrefix = PageService.urlPrefix;
   const urlPrefix = '';
 
-  let talkData = useSelector((state: { talkData: any }) => state.talkData);
+  let talks = useSelector((state: { talks: any }) => state.talks);
+
+  React.useEffect(() => {
+    fetch('http://localhost:3050/api/talks')
+    .then(res => res.json())
+    .then(
+      (result) => {
+        dispatch({
+          type: 'talks',
+          value: result
+        });
+      },
+
+      (error) => {
+      }
+    )
+  }, []);
+
 
   React.useEffect(() => {
     const ws = new WebSocket('ws://localhost:3030');
@@ -31,12 +48,14 @@ const APP = () => {
     }
 
     ws.onmessage = function(event) {
+      console.log('Receive talks by ws');
+      console.log(JSON.parse(event.data).talks);
       dispatch({
-        type: 'talkData',
-        value: JSON.parse(event.data)
+        type: 'talks',
+        value: JSON.parse(event.data).talks
       });
     };
-  }, [talkData]);
+  }, []);
 
 
   return (

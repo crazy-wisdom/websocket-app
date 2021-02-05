@@ -7,8 +7,8 @@ type ActionProps = {
 };
 
 
-const talkData = (state = {}, action: ActionProps) => {
-  if (action.type === 'talkData') {
+const talks = (state = {}, action: ActionProps) => {
+  if (action.type === 'talks') {
     const data =  {
       ...state,
       ...action.value
@@ -22,7 +22,7 @@ const talkData = (state = {}, action: ActionProps) => {
 
 
 const rootReducer = combineReducers({
-  talkData
+  talks
 });
 
 

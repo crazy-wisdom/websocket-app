@@ -15,23 +15,18 @@ import BaseLayout from '../layouts/base-layout';
 
 
 const Index = () => {
-  let talkData = useSelector((state: { talkData: any }) => state.talkData);
-
-  React.useEffect(() => {
-    console.log('xxx====')
-    console.log(talkData)
-    console.log('xxx====')
-  }, [talkData]);
+  const dispatch = useDispatch();
+  let talks = useSelector((state: { talks: any }) => state.talks);
 
   return (
     <BaseLayout>
       <ul className="talk-list">
-        {Object.keys(talkData).map((id: any) =>
-          <li key={id}>
+        {Object.keys(talks).map((id: any) =>
+          <li key={talks[id].title}>
             <div className="title">
               <i className="fa fa-caret-up" aria-hidden="true"></i>
               <div className="text">
-                {talkData[id].title}
+                {talks[id].title}
               </div>
             </div>
 

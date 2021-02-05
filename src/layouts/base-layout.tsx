@@ -14,7 +14,6 @@ import * as PageService from '../services/page-service';
 import "../styles/main";
 
 
-
 type Props = {
   children: React.ReactNode
 }

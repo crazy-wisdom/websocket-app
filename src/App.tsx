@@ -2,8 +2,7 @@ import * as React from 'react';
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Link
+  Route
 } from "react-router-dom";
 import {useSelector, useDispatch} from 'react-redux';
 
@@ -69,8 +68,8 @@ const APP = () => {
     }
 
     ws.onmessage = function(event) {
-      console.log('Receive talks by ws');
-      console.log(JSON.parse(event.data).talks);
+      // console.log('Receive talks by ws');
+      // console.log(JSON.parse(event.data).talks);
       dispatch({
         type: 'talks',
         value: JSON.parse(event.data).talks

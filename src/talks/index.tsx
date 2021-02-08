@@ -33,6 +33,14 @@ const Index = () => {
     }
   }
 
+  function show(id: number) {
+    try {
+      history.push(`${urlPrefix}/talks/${id}`);
+    } catch (error) {
+      // console.log(error.message);
+    }
+  }
+
   function voteUp(id: number) {
     try {
       // console.log(profile.id);
@@ -76,7 +84,7 @@ const Index = () => {
                   <li key={index}>
                     <div className="title">
                       <i className="fa fa-caret-up" aria-hidden="true" onClick={() => voteUp(id)}></i>
-                      <div className="text">
+                      <div className="text" onClick={() => show(id)}>
                         {talks[id].title}
                       </div>
                     </div>

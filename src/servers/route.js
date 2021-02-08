@@ -66,6 +66,22 @@ exports.setup = function(app, express) {
       next();
     });
 
+  router.route('/talks/:id')
+    // GET /api/talks/:id
+    .get(function(req, res, next) {
+      const { id } = req.params;
+      let talk = {};
+
+      try {
+        talk = app.locals.talks[id];
+      } catch (error) {
+      }
+
+      res.json(talk);
+      
+      next();
+    });
+
   router.route('/talks/:id/vote-up')
     // PUT /api/talks/:id/vote-up
     // Update rank

@@ -1,6 +1,6 @@
 
 const path = require('path');
-var cors = require('cors');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const websocket = require('./websocket');
 
@@ -14,7 +14,13 @@ exports.setup = function(app, express) {
 
   const router = express.Router();
 
-  app.use(cors());
+  app.use(cors({
+    origin: [
+      'http://localhost:1234',
+    ],
+    credentials: true,
+    exposedHeaders: ['set-cookie']
+  }));
 
   app.use(bodyParser.urlencoded({
     extended: true
@@ -30,16 +36,17 @@ exports.setup = function(app, express) {
 
   router.route('/talks')
     
-    // GET http://localhost:3050/api/talks
+    // GET /api/talks
     .get(function(req, res, next) {
       console.log('Get talks')
       res.json(app.locals.talks);
       next();
     })
 
-    // POST http://localhost:3050/api/talks
+    // POST /api/talks
     .post(function(req, res, next) {
       const data = {
+        user_id: req.session.id,
         title: req.body.title,
         content: req.body.content,
         rank: req.body.rank ? req.body.rank : 0,
@@ -54,6 +61,22 @@ exports.setup = function(app, express) {
 
       // Send latest talks to all clients.
       websocket.send(app, websocketServer);
+
+      res.json(app.locals.talks);
+      next();
+    });
+
+  router.route('/talks/:id/vote-up')
+    // PUT /api/talks/:id/vote-up
+    // Update rank
+    .put(function(req, res, next) {
+      const { id } = req.params;
+
+      if (app.locals.talks[id].user_id === req.session.id) {
+        app.locals.talks[id].rank += 1;
+        console.log(`Update rank by id: ${id}, user id: ${req.session.id}`);
+        websocket.send(app, websocketServer);
+      }
 
       res.json(app.locals.talks);
       next();

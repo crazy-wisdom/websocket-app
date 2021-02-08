@@ -1,5 +1,5 @@
 import * as React from 'react';
-import axios from "axios/index";
+import axios from '../services/axios-service';
 
 import {
   useSelector,

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import axios from '../services/axios-service';
 
 import {
   useSelector,
@@ -20,12 +21,29 @@ const Index = () => {
   const talks = useSelector((state: { talks: any }) => state.talks);
   const talkIds = Object.keys(talks);
   const urlPrefix = PageService.urlPrefix;
+  const apiUrl = PageService.apiUrl;
 
 
   function showNew(event: React.MouseEvent) {
     try {
-      
       history.push(`${urlPrefix}/talks/new`);
+    } catch (error) {
+      // console.log(error.message);
+    }
+  }
+
+  function voteUp(id: number) {
+    try {
+      axios.put(`${apiUrl}/api/talks/${id}/vote-up`)
+        .then(function (response) {
+          // console.log(response);
+          history.push(`${urlPrefix}/talks`);
+        })
+        .catch(function (error) {
+          // console.log(error);
+        });
+
+      history.push(`${urlPrefix}/talks`);
     } catch (error) {
       // console.log(error.message);
     }
@@ -52,14 +70,14 @@ const Index = () => {
                 {talkIds.map((id: any, index) =>
                   <li key={index}>
                     <div className="title">
-                      <i className="fa fa-caret-up" aria-hidden="true"></i>
+                      <i className="fa fa-caret-up" aria-hidden="true" onClick={() => voteUp(id)}></i>
                       <div className="text">
                         {talks[id].title}
                       </div>
                     </div>
 
                     <div className="sub-title">
-                      <span className="time">4 hours ago</span>
+                      <span className="time">{`${PageService.timeAgo(talks[id].created_at)}`}</span>
                     </div>
                   </li>
                 )}

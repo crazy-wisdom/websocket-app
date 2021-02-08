@@ -9,9 +9,9 @@ import {useSelector, useDispatch} from 'react-redux';
 import * as PageService from './services/page-service';
 import axios from './services/axios-service';
 
-import Index from './talks/index';
-import Show from './talks/show';
-import New from './talks/new';
+import Index from './views/talks/index';
+import Show from './views/talks/show';
+import New from './views/talks/new';
 
 
 const APP = () => {
@@ -81,6 +81,7 @@ const APP = () => {
   return (
     <Switch>
 
+      <Route path={`${urlPrefix}/`} component={Index} exact />
       <Route path={`${urlPrefix}/talks`} component={Index} exact />
       <Route path={`${urlPrefix}/talks/new`} component={New} exact />
       <Route path={`${urlPrefix}/talks/:id`} component={Show} />

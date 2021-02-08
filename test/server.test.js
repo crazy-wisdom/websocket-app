@@ -1,4 +1,4 @@
-const Model = require('../src/servers/model');
+const Model = require('../servers/model');
 
 const create_talk = function(rank=0) {
   const time = new Date().getTime();

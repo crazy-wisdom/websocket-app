@@ -15,7 +15,7 @@ npm install
 
 ### start backend
 ```
-node src/servers/server.js
+node servers/server.js
 ```
 
 ### start frontend
@@ -24,7 +24,7 @@ npm start
 ```
 
 ### done
-After start backend and frontend. Then Visit: http://localhost:1234/talks
+After start backend and frontend. Then Visit: http://localhost:1234
 
 
 ### test

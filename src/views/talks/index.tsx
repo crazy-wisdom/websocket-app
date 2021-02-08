@@ -1,5 +1,5 @@
 import * as React from 'react';
-import axios from '../services/axios-service';
+import axios from '../../services/axios-service';
 
 import {
   useSelector,
@@ -11,7 +11,7 @@ import {
   useParams
 } from "react-router-dom";
 
-import * as PageService from '../services/page-service';
+import * as PageService from '../../services/page-service';
 
 import BaseLayout from '../layouts/base-layout';
 

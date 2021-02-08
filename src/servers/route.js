@@ -82,6 +82,18 @@ exports.setup = function(app, express) {
       next();
     });
 
+  router.route('/profile')
+    // GET /api/profile
+    .get(function(req, res, next) {
+      const user = {
+        id: req.session.id
+      };
+
+      console.log('Get profile');
+      res.json(user);
+      next();
+    })
+
   app.use('/api', router);
 
   app.listen(port, () => {

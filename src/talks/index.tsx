@@ -19,6 +19,7 @@ import BaseLayout from '../layouts/base-layout';
 const Index = () => {
   const history = useHistory();
   const talks = useSelector((state: { talks: any }) => state.talks);
+  const profile = useSelector((state: { profile: any }) => state.profile);
   const talkIds = Object.keys(talks);
   const urlPrefix = PageService.urlPrefix;
   const apiUrl = PageService.apiUrl;
@@ -34,14 +35,18 @@ const Index = () => {
 
   function voteUp(id: number) {
     try {
-      axios.put(`${apiUrl}/api/talks/${id}/vote-up`)
-        .then(function (response) {
-          // console.log(response);
-          history.push(`${urlPrefix}/talks`);
-        })
-        .catch(function (error) {
-          // console.log(error);
-        });
+      // console.log(profile.id);
+      // console.log(talks[id].user_id);
+      if (profile.id === talks[id].user_id) {
+        axios.put(`${apiUrl}/api/talks/${id}/vote-up`)
+          .then(function (response) {
+            // console.log(response);
+            history.push(`${urlPrefix}/talks`);
+          })
+          .catch(function (error) {
+            // console.log(error);
+          });
+      }
 
       history.push(`${urlPrefix}/talks`);
     } catch (error) {

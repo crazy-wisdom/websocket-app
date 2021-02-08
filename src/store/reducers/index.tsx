@@ -20,9 +20,23 @@ const talks = (state = {}, action: ActionProps) => {
   return state;
 };
 
+const profile = (state = {}, action: ActionProps) => {
+  if (action.type === 'profile') {
+    const data =  {
+      ...state,
+      ...action.value
+    }
+
+    return data;
+  }
+
+  return state;
+};
+
 
 const rootReducer = combineReducers({
-  talks
+  talks,
+  profile
 });
 
 

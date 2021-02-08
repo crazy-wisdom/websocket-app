@@ -8,6 +8,7 @@ import {
 import {useSelector, useDispatch} from 'react-redux';
 
 import * as PageService from './services/page-service';
+import axios from './services/axios-service';
 
 import Index from './talks/index';
 import Show from './talks/show';
@@ -22,19 +23,38 @@ const APP = () => {
   const wsUrl = PageService.wsUrl;
 
   React.useEffect(() => {
-    fetch(`${apiUrl}/api/talks`)
-    .then(res => res.json())
-    .then(
-      (result) => {
-        dispatch({
-          type: 'talks',
-          value: result
-        });
-      },
 
-      (error) => {
-      }
-    )
+    axios.get(`${apiUrl}/api/profile`)
+    .then(function(response: any) {
+      // console.log(response);
+      dispatch({
+        type: 'profile',
+        value: response.data
+      });
+    })
+    .catch(function(error: any) {
+      // console.log(error);
+    })
+    .then(function () {
+    });
+
+  }, []);
+
+  React.useEffect(() => {
+    axios.get(`${apiUrl}/api/talks`)
+    .then(function(response: any) {
+      // console.log(response.data);
+      dispatch({
+        type: 'talks',
+        value: response.data
+      });
+    })
+    .catch(function(error: any) {
+      // console.log(error);
+    })
+    .then(function () {
+    });
+
   }, []);
 
 

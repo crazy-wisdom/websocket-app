@@ -24,9 +24,9 @@ body {
     box-shadow: 0 0 10px #999;
     border: 0;
     background: #fff;
-    width: 460px;
+    width: 470px;
     height: 300px;
-    padding: 8px 20px 8px 20px;
+    padding: 12px 15px 12px 15px;
   }
   
   .submit-btn {
@@ -129,7 +129,7 @@ header {
 
 @media (max-width: 567px) {
 
-  form {
+  .form {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -137,7 +137,7 @@ header {
     margin: 0 auto;
 
     textarea {
-      width: 240px;
+      width: 250px;
     }
   }
   

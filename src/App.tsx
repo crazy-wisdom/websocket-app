@@ -16,6 +16,7 @@ import New from './views/talks/new';
 
 const APP = () => {
   const dispatch = useDispatch();
+  const profile = useSelector((state: { profile: any }) => state.profile);
 
   const urlPrefix = PageService.urlPrefix;
   const apiUrl = PageService.apiUrl;
@@ -37,7 +38,7 @@ const APP = () => {
     .then(function () {
     });
 
-  }, []);
+  }, [profile.id]);
 
   React.useEffect(() => {
     axios.get(`${apiUrl}/api/talks`)

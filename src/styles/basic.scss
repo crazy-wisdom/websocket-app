@@ -18,6 +18,12 @@ $sans-serif-font: "Fira Sans", Roboto, Arial, sans-serif;
   padding: 0 15px 0 15px;
 }
 
+.error {
+  color: #f3410a;
+  font-size: 14px;
+  margin: 0 0 15px 0;
+  text-align: center;
+}
 
 .input-wrap {
   display: flex;
